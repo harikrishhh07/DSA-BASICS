@@ -6,6 +6,16 @@ struct node {
     struct node *next;
 };
 
+void delete_at_begnning(struct node **head) {
+    if (*head == NULL) {
+        printf("\nList is empty. Cannot delete.\n");
+        return;
+    }
+    struct node *temp = *head;
+    *head = (*head)->next;
+    free(temp);
+}
+
 int main() {
     struct node *head = NULL, *newnode, *temp;
     int choice = 1;
@@ -15,15 +25,18 @@ int main() {
         printf("Enter the data: ");
         scanf("%d", &newnode->data);
         newnode->next = NULL;
+
         if (head == NULL) {
             head = temp = newnode;  
         } else {
             temp->next = newnode;  
             temp = newnode;
         }
+
         printf("Do you want to continue (1/0): ");
         scanf("%d", &choice);
     }
+
     printf("\nLinked List: ");
     temp = head;
     while (temp != NULL) {
@@ -31,20 +44,17 @@ int main() {
         temp = temp->next;
     }
     printf("NULL\n");
-    
 
-    void delete_at_begnning(){
-        temp=head;
-        head=head->next;
-        free(temp);
-    }
-    delete_at_begnning();
-    printf("\nLinked List after deletion at begnning: ");
+    delete_at_begnning(&head);
+
+    printf("\nLinked List after deletion at beginning: ");
     temp = head;
     while (temp != NULL) {
         printf("%d -> ", temp->data);
         temp = temp->next;
     }
     printf("NULL\n");
+
     return 0;
 }
+
